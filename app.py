@@ -3,7 +3,7 @@ import numpy as np
 # Function to load data
 
 def load_data():
- data = pd.read_csv('sales_data.csv')
+ data = pd.read_csv('sasles_data.csv')
  return data
 # Function to transform data
 def transform_data(df):
