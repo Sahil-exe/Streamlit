@@ -1,0 +1,41 @@
+name: Deployment
+
+on:
+  schedule:
+    - cron: "0 17 * * *"
+
+jobs:
+   Validatoin pipeline
+    runs-on: ubuntu-latest
+    steps:
+      name: Checkout rep
+      uses: actions/checkout@v2
+
+      name: Setup Python Env
+      uses: actions/setup-python@v4
+      with:
+         python-version: '3.9'
+      
+      name: Install dependencies
+      run:  pip install pandas numpy
+
+      name: Streamlit application
+      run: python app.py &> runtime.log
+
+      name: Upload runtime
+      uses: actions/upload-artifact@v3
+      with: 
+        name: runtime.log
+        path: runtime.log  
+
+
+
+
+
+
+
+
+- uses: mikeal/publish-to-github-action@master
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    BRANCH_NAME: '' #optional defaults to master
